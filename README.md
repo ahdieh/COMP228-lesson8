@@ -1,2 +1,2 @@
 # COMP228-lesson8
-Repo for Java programming (Comp228) @ Centennial college
+Repo for Java Programming (Comp228) @ Centennial college
