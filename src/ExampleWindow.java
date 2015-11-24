@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
-public class ExampleWindow extends JFrame {
+public class ExampleWindow extends JFrame implements ActionListener{
 
 	// PRIVATE INSTANCES VARIABLES ++++++++++++++++++++++++++++
 	private JPanel _contentPane;
@@ -37,8 +37,21 @@ public class ExampleWindow extends JFrame {
 	public ExampleWindow() {
 		this._initialize();
 		this._addUIComponent();
+		
+		/*
+		// External class
+		this._nameTextFieldHandler = new NameTextFieldHandler(this);
+		this._nameTextField.addActionListener(this._nameTextFieldHandler);*/
+		
+		
+		/*
+		// Inner class
 		this._nameTextFieldHandler = new NameTextFieldHandler();
-		this._nameTextField.addActionListener(this._nameTextFieldHandler);
+		this._nameTextField.addActionListener(this._nameTextFieldHandler);*/
+		
+		
+		// Register Event handler
+		this._nameTextField.addActionListener(this);
 	}
 	
 	// PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++++
@@ -83,7 +96,8 @@ public class ExampleWindow extends JFrame {
 		this._label.setBounds(5, 5, 96, 20);
 		this._contentPane.add(this._label);
 	}
-	
+
+	/*
 	// INNER CLASS +++++++++++++++++++++++++++++++++++++++++++++++++++
 	private class NameTextFieldHandler implements ActionListener {
 		
@@ -93,5 +107,12 @@ public class ExampleWindow extends JFrame {
 			_label.setText("Enter!");
 		}
 
+	}*/
+	
+	// Register Event handler
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		
+		this._label.setText("Enter!");
 	}
 }
