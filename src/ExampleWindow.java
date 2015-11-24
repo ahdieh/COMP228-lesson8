@@ -33,7 +33,6 @@ public class ExampleWindow extends JFrame {
 	}
 	// CONSTRUCTOR +++++++++++++++++++++++++++++++++++++++++++++
 	public ExampleWindow() {
-	
 		this._initialize();
 		this._addUIComponent();
 		this._nameTextFieldHandler = new NameTextFieldHandler(this);
