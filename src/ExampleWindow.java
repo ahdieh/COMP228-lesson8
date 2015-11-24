@@ -1,14 +1,18 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 
 public class ExampleWindow extends JFrame implements ActionListener{
 
@@ -17,8 +21,11 @@ public class ExampleWindow extends JFrame implements ActionListener{
 	private JLabel _label;
 	private JLabel _nameLabel;
 	private JTextField _nameTextField;
-	
+	private JButton _enterBtn;
 	private NameTextFieldHandler _nameTextFieldHandler;
+	private JLabel _ageLabel;
+	private JTextField _ageTextField;
+	private Border _redBorder;
 	
 	//PROPERTIES +++++++++++++++++++++++++++++++++++++++++++++++
     public JLabel getLabel() {
@@ -37,21 +44,11 @@ public class ExampleWindow extends JFrame implements ActionListener{
 	public ExampleWindow() {
 		this._initialize();
 		this._addUIComponent();
-		
-		/*
-		// External class
-		this._nameTextFieldHandler = new NameTextFieldHandler(this);
-		this._nameTextField.addActionListener(this._nameTextFieldHandler);*/
-		
-		
-		/*
-		// Inner class
-		this._nameTextFieldHandler = new NameTextFieldHandler();
-		this._nameTextField.addActionListener(this._nameTextFieldHandler);*/
-		
-		
+
 		// Register Event handler
+		this._enterBtn.addActionListener(this);
 		this._nameTextField.addActionListener(this);
+		this._ageTextField.addActionListener(this);
 	}
 	
 	// PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++++
@@ -62,6 +59,7 @@ public class ExampleWindow extends JFrame implements ActionListener{
 		this._contentPane = new JPanel();
 		this._contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this._contentPane);
+		
 		
 	
 	}
@@ -80,39 +78,72 @@ public class ExampleWindow extends JFrame implements ActionListener{
 		
 		// Name label
 		this._nameLabel = new JLabel("Enter Name:");
-		this._nameLabel.setBounds(5, 25, 96, 20);
+		this._nameLabel.setBounds(5, 70, 96, 20);
 		this._contentPane.add(this._nameLabel);
 		
 		// Name text field
 		this._nameTextField = new JTextField();
-		this._nameTextField.setBounds(122, 22, 173, 20);
+		this._nameTextField.setBounds(121, 60, 173, 30);
 		this._contentPane.add(this._nameTextField);
+		
+		// Enter button
+		this._enterBtn = new JButton("Enter");
+		this._enterBtn.setBounds(179, 184, 115, 29);
+		this._contentPane.add(this._enterBtn);
+		
+		// Age label
+		this._ageLabel = new JLabel("Enter age:");
+		this._ageLabel.setBounds(5, 106, 96, 20);
+		this._contentPane.add(this._ageLabel);
+		
+		// Age text field
+		this._ageTextField = new JTextField();
+		this._ageTextField.setBounds(122, 96, 173, 30);
+		this._contentPane.add(this._ageTextField);
 		
 
 	}
 	
 	
 	private void _addLabel() {
-		this._label.setBounds(5, 5, 96, 20);
+		this._label.setBounds(5, 5, 408, 30);
 		this._contentPane.add(this._label);
 	}
 
-	/*
-	// INNER CLASS +++++++++++++++++++++++++++++++++++++++++++++++++++
-	private class NameTextFieldHandler implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent event){
-
-			_label.setText("Enter!");
-		}
-
-	}*/
 	
 	// Register Event handler
 	@Override
 	public void actionPerformed(ActionEvent event) {
+	if(event.getSource()==this._nameTextField){
+		this._label.setText(this._nameTextField.getText());
+		  this._nameTextField.setBorder(null);
+	}
+	if(event.getSource()==this._enterBtn){
+		try {
+			int age = Integer.parseInt(this._ageTextField.getText());
+		    this._label.setText(this._nameTextField.getText()+ ": " + age+ " years old");
+		    this._ageTextField.setBorder(null);
+		    this._nameTextField.setBorder(null);
 		
-		this._label.setText("Enter!");
+		}catch (Exception e) {
+			this._label.setText("Hey, it was wrong");
+			this._ageTextField.selectAll();
+			this._ageTextField.setBorder(BorderFactory.createLineBorder(Color.red));
+		}
+	}
+		if(event.getSource()==this._ageTextField){
+		try {
+			int age = Integer.parseInt(this._ageTextField.getText());
+			this._label.setText(Integer.toString(age));
+			this._ageTextField.setBorder(null);
+			
+		} catch (Exception e) {
+			this._label.setText("Hey, it was wrong");
+			this._ageTextField.selectAll();
+			
+
+			this._ageTextField.setBorder(BorderFactory.createLineBorder(Color.red));
+		}
+	}
 	}
 }
