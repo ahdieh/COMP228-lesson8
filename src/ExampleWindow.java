@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,7 +37,7 @@ public class ExampleWindow extends JFrame {
 	public ExampleWindow() {
 		this._initialize();
 		this._addUIComponent();
-		this._nameTextFieldHandler = new NameTextFieldHandler(this);
+		this._nameTextFieldHandler = new NameTextFieldHandler();
 		this._nameTextField.addActionListener(this._nameTextFieldHandler);
 	}
 	
@@ -80,5 +82,16 @@ public class ExampleWindow extends JFrame {
 	private void _addLabel() {
 		this._label.setBounds(5, 5, 96, 20);
 		this._contentPane.add(this._label);
+	}
+	
+	// INNER CLASS +++++++++++++++++++++++++++++++++++++++++++++++++++
+	private class NameTextFieldHandler implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent event){
+
+			_label.setText("Enter!");
+		}
+
 	}
 }
